@@ -10,7 +10,7 @@
 </p>
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Project Overview](#-project-overview)  
 2. [System Architecture](#-system-architecture)  
@@ -22,29 +22,29 @@
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
 TALASH is a **next-generation recruitment pipeline** designed for complex academic hiring workflows.  
 
 **Milestone 1** focuses on replacing manual CV data entry with an **autonomous, LLM-driven extraction and normalization pipeline**.
 
-### 🚀 Core Capabilities
+### Core Capabilities
 
-- **📄 Robust PDF Ingestion**  
+- ** Robust PDF Ingestion**  
   Extracts structured text from dense, multi-page academic CVs.
 
-- **🧠 Autonomous Structuring**  
+- ** Autonomous Structuring**  
   Uses Google Gemini to convert raw text into structured JSON.
 
-- **🧹 Data Cleaning & Normalization**  
+- **  Data Cleaning & Normalization**  
   Handles GPA extraction, string normalization, and enum standardization.
 
-- **🗄️ Relational Storage**  
+- ** Relational Storage**  
   Stores parsed data across a **9-table PostgreSQL schema**.
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 Pipeline Flow:
 
@@ -56,7 +56,7 @@ Pipeline Flow:
 
 ---
 
-## 💾 Database Schema
+## Database Schema
 
 TALASH uses a **Hub-and-Spoke relational database model** for scalable querying and analytics.
 
@@ -64,11 +64,11 @@ TALASH uses a **Hub-and-Spoke relational database model** for scalable querying 
   <img src="assets/ERD_TALASH.png" alt="ER Diagram" width="800"/>
 </p>
 
-### 🧩 Highlights
+### Highlights
 
 - **JSONB Extensibility** → Flexible metadata storage  
-- **🔐 Row-Level Security (RLS)** → Protects candidate data  
-- **⚡ Indexed Foreign Keys** → Fast joins and queries  
+- **Row-Level Security (RLS)** → Protects candidate data  
+- **Indexed Foreign Keys** → Fast joins and queries  
 
 2. Add secrets:
 
@@ -133,13 +133,13 @@ TALASH uses a **Hub-and-Spoke relational database model** for scalable querying 
 
 ---
 
-## 📊 Sample Output (Anonymized)
+## Sample Output (Anonymized)
 
 *Note: Due to strict data privacy and PII protection policies, the raw academic CV datasets and full CSV exports are not included.*
 
 ---
 
-### 📄 1. Raw PDF Input (Mock Example)
+### 1. Raw PDF Input (Mock Example)
 
 ```
 Dr. Jane Doe | jane.doe@email.com | +92-300-0000000  
@@ -149,7 +149,7 @@ Experience: Assistant Professor at NUST (2021-Present)
 
 ---
 
-### 🧠 2. Extracted JSON (Gemini Output)
+### 2. Extracted JSON (Gemini Output)
 
 ```json
 {
@@ -240,11 +240,11 @@ Experience: Assistant Professor at NUST (2021-Present)
 
 ---
 
-## � Milestone 2: Core Extraction, Analysis Pipeline & Intermediate Web App  
+## Milestone 2: Core Extraction, Analysis Pipeline & Intermediate Web App  
 
 **Objective:** Build comprehensive CV analysis and candidate assessment system with web-based interface.
 
-### ✅ Milestone 2 Deliverables (25 marks total)
+### Milestone 2 Deliverables (25 marks total)
 
 | Criterion | Marks | Status |
 |-----------|-------|--------|
@@ -257,16 +257,16 @@ Experience: Assistant Professor at NUST (2021-Present)
 
 ---
 
-### 📦 Milestone 2 Components
+### Milestone 2 Components
 
-#### 1️⃣ **CV Parsing & Structured Extraction** (5 marks)
+#### 1️**CV Parsing & Structured Extraction** (5 marks)
 
 **Implemented Features:**
-- ✅ Folder-based CV ingestion (`cv_batch_processor.py`)
-- ✅ PDF text extraction using `pdfplumber`
-- ✅ Raw text preprocessing and cleaning
-- ✅ Structured JSON output generation
-- ✅ Google Gemini LLM integration ready (prompts prepared)
+- Folder-based CV ingestion (`cv_batch_processor.py`)
+- PDF text extraction using `pdfplumber`
+- Raw text preprocessing and cleaning
+- Structured JSON output generation
+- Google Gemini LLM integration ready (prompts prepared)
 
 **Code Location:** [`cv_batch_processor.py`](cv_batch_processor.py)
 
@@ -297,14 +297,14 @@ processor.save_results()    # Saves JSON
 
 ---
 
-#### 2️⃣ **Educational Profile Analysis** (5 marks)
+#### 2️ **Educational Profile Analysis** (5 marks)
 
 **Analysis Components:**
-- ✅ Degree sequence validation
-- ✅ Educational gaps detection  
-- ✅ Institution quality assessment (QS Ranking, THE Ranking)
-- ✅ Highest qualification identification
-- ✅ Grade/CGPA consistency check
+- Degree sequence validation
+- Educational gaps detection  
+- Institution quality assessment (QS Ranking, THE Ranking)
+- Highest qualification identification
+- Grade/CGPA consistency check
 
 **Code Location:** [`milestone2.py` - `analyze_educational_profile()`](milestone2.py#L23)
 
@@ -327,15 +327,15 @@ processor.save_results()    # Saves JSON
 
 ---
 
-#### 3️⃣ **Professional Experience Analysis** (6 marks)
+#### 3️**Professional Experience Analysis** (6 marks)
 
 **Analysis Components:**
-- ✅ Timeline consistency validation (overlap detection)
-- ✅ Employment gap identification (>90 days flagged)
-- ✅ Career progression tracking
-- ✅ Job title sequence analysis
-- ✅ Duration-based seniority inference
-- ✅ Current employment status
+- Timeline consistency validation (overlap detection)
+- Employment gap identification (>90 days flagged)
+- Career progression tracking
+- Job title sequence analysis
+- Duration-based seniority inference
+- Current employment status
 
 **Code Location:** [`milestone2.py` - `analyze_professional_experience()`](milestone2.py#L57)
 
@@ -358,7 +358,7 @@ processor.save_results()    # Saves JSON
 
 ---
 
-#### 4️⃣ **Missing Information Detection & Email Drafting** (4 marks)
+#### 4️**Missing Information Detection & Email Drafting** (4 marks)
 
 **Detection Systems:**
 - ✅ Missing email detection
@@ -397,7 +397,7 @@ HR Team
 
 ---
 
-#### 5️⃣ **Intermediate Web Application** (6 marks)
+#### 5️**Intermediate Web Application** (6 marks)
 
 **Frontend Pages:** 8 interactive HTML pages
 
@@ -413,10 +413,10 @@ HR Team
 | Archive | Help | System documentation |
 
 **Visualizations (Reports Page):**
-- 📊 Score Distribution (histogram)
-- 🍰 Profile Completion Status (doughnut)
-- 📈 Analysis Pipeline Trends (line chart)
-- 📋 Top Skills Distribution (horizontal bar)
+- core Distribution (histogram)
+- Profile Completion Status (doughnut)
+- Analysis Pipeline Trends (line chart)
+- Top Skills Distribution (horizontal bar)
 
 **Setup & Running:**
 
@@ -462,7 +462,7 @@ GET  /health                             - Server health check
 
 ---
 
-### 📊 Running Milestone 2 Demo
+### Running Milestone 2 Demo
 
 #### **Step 1: Generate Sample Data**
 ```bash
@@ -499,24 +499,24 @@ python cv_batch_processor.py
 
 ---
 
-### 📁 **File Structure - Milestone 2**
+### **File Structure - Milestone 2**
 
 ```
 Talash-LLM_Project/
 │
-├── 📄 **Backend API**
+├── **Backend API**
 │   ├── app.py                           # Flask server with 8 API endpoints
 │   ├── cv_batch_processor.py            # Batch CV processing
 │   ├── sample_cv_generator.py           # Demo data generator
 │   └── milestone2.py                    # Analysis engine (4 analysis functions)
 │
-├── 🎨 **Frontend Web App**
+├── **Frontend Web App**
 │   ├── frontend/
 │   │   ├── login.html                   # Login page
 │   │   ├── index.html                   # Dashboard (3 stat cards, queue table)
 │   │   ├── candidates.html              # Candidate ledger (search, filter)
-│   │   ├── analysis.html                # ⭐ NEW: Detailed analysis (4 tabs)
-│   │   ├── reports.html                 # ⭐ ENHANCED: 4 interactive charts
+│   │   ├── analysis.html                # NEW: Detailed analysis (4 tabs)
+│   │   ├── reports.html                 # ENHANCED: 4 interactive charts
 │   │   ├── profile.html                 # Candidate profile detail
 │   │   ├── settings.html                # Settings/config
 │   │   ├── css/
@@ -529,109 +529,21 @@ Talash-LLM_Project/
 │       ├── outputs/                     # Extraction results
 │       └── sample_cv_data.json          # Demo candidates
 │
-├── 📦 **Database Schema**
+├── **Database Schema**
 │   └── milestone_1/schema.sql           # 9-table PostgreSQL schema
 │
-├── 📋 **Documentation**
+├── **Documentation**
 │   ├── README.md                        # This file
 │   ├── requirements.txt                 # Python dependencies
 │   └── assets/
 │       └── prototype                    # Figma design mockups
 │
-└── 🧪 **Testing**
+└── **Testing**
     └── milestone2_analysis.py           # Analysis module placeholder
 
 ```
 
----
-
-### 🎯 Rubric Alignment
-
-#### **Criterion 1: CV Parsing & Extraction (5/5 ✅)**
-- ✅ Folder reading: `cv_batch_processor.py` processes all PDFs
-- ✅ Text extraction: `pdfplumber` library
-- ✅ Structured output: JSON format with 8 data categories
-- ✅ LLM ready: Google Gemini prompts included
-- ✅ Database ready: Supabase schema exists
-
-#### **Criterion 2: Educational Profile Analysis (5/5 ✅)**
-- ✅ Gap detection: Validates degree progression
-- ✅ Institution ranking: QS/THE ranking integration
-- ✅ Grade validation: CGPA/GPA checking
-- ✅ Qualification hierarchy: BS/MS/PhD tracking
-- ✅ Quality assessment: Institutional prestige scoring
-
-#### **Criterion 3: Professional Experience Analysis (6/6 ✅)**
-- ✅ Timeline validation: Overlap detection
-- ✅ Gap analysis: 90-day threshold flagging
-- ✅ Career progression: Junior → Senior tracking
-- ✅ Job sequence: Role evolution
-- ✅ Current status: Active employment detection
-- ✅ Duration analytics: Experience calculation
-
-#### **Criterion 4: Missing Info & Email Drafting (4/4 ✅)**
-- ✅ Missing field detection: Email, phone, grades
-- ✅ Automated flagging: Field-level completeness
-- ✅ Email drafting: Personalized templates
-- ✅ Export ready: Ready for SMTP integration
-
-#### **Criterion 5: Web Application (6/6 ✅)**
-- ✅ Multi-page interface: 8 pages with navigation
-- ✅ Analysis display: Tabbed interface for 4 analysis types
-- ✅ Charts/graphs: 4 visualizations with Chart.js
-- ✅ Tabular output: Tables for candidates, reports, analysis
-- ✅ Responsive design: Mobile-friendly layout
-- ✅ User experience: Professional Figma-aligned design
-
----
-
-### 💡 Testing Instructions
-
-**Test Case 1: Educational Analysis**
-```bash
-curl "http://localhost:5000/api/analyze/1"
-# Verify: educational_gaps, institutional_quality, highest_qualification
-```
-
-**Test Case 2: Professional Experience**
-- Check timeline_overlaps: Should be empty
-- Check professional_gaps: Should show gaps >90 days
-- Verify career_progression detected
-
-**Test Case 3: Missing Information**
-```bash
-curl "http://localhost:5000/api/missing-info-email/4"
-# Candidate 4 (Aisha Bibi) has missing email
-# Should generate draft email with personalized content
-```
-
-**Test Case 4: Web UI Navigation**
-- Login → Dashboard → Candidates → View Analysis → Reports → Settings
-- All pages should load and display sample data
-- Charts should render on Reports page
-
-**Test Case 5: File Upload**
-- Place PDF in `uploads/` folder
-- Run `python cv_batch_processor.py`
-- Check `outputs/cv_extraction_results.json` for results
-
----
-
----
-
-## 🌟 Future Work (Milestone 3)
-
-* 🔗 Real Supabase integration
-* 🤖 Google Gemini LLM integration for parsing
-* 📊 Advanced visualization (D3.js)
-* 🎯 Job matching engine
-* 📧 Email sending integration
-* 🔐 Authentication system
-* 📈 Ranking/scoring algorithms
-
----
-
-## 🚀 Quick Start (Milestone 2)
+## Quick Start (Milestone 2)
 
 ```bash
 # 1. Setup environment
@@ -654,7 +566,7 @@ python app.py
 
 ---
 
-## 📚 References
+## References
 
 - [Google Generative AI](https://ai.google.dev/)
 - [Supabase Documentation](https://supabase.com/docs)
@@ -663,7 +575,3 @@ python app.py
 - [Chart.js](https://www.chartjs.org/)
 
 ---
-
-**Last Updated:** January 26, 2024  
-**Version:** Milestone 2 - Complete  
-
