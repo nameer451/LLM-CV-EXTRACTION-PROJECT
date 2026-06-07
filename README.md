@@ -1,577 +1,348 @@
+# TALASH: Talent Acquisition & Learning Automation for Smart Hiring
 
-#  TALASH: Talent Acquisition & Learning Automation for Smart Hiring
-*An Intelligent CV Parsing and Talent Acquisition System powered by Google Gemini*
+An intelligent CV parsing and candidate assessment system powered by Google Gemini.
 
-<p align="center">
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.9+-blue.svg"></a>
-  <a href="https://ai.google.dev/"><img src="https://img.shields.io/badge/Google%20Gemini-Pro%20Ready-orange"></a>
-  <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-47C7A2?logo=supabase"></a>
-  <a href="https://www.kaggle.com/"><img src="https://img.shields.io/badge/Kaggle-Environment-20BEFF?logo=kaggle"></a>
-</p>
+**Course:** CS-417 Large Language Models — Spring 2026  
+**University:** NUST Islamabad  
+**Instructor:** Prof. Dr. Muhammad Moazam Fraz  
+**Team:** Nameer Ahmed (454029), Rimsha Mahmood (455080), Muhammad Ahmad (461348)  
+**Repository:** https://github.com/mahmadr10/Talash-LLM_Project
+
 ---
 
 ## Table of Contents
 
-1. [Project Overview](#-project-overview)  
-2. [System Architecture](#-system-architecture)  
-3. [Database Schema](#-database-schema)  
-4. [LLM Integration Strategy](#-llm-integration-strategy)  
-5. [Setup & Installation](#-setup--installation)  
-6. [Sample Output](#-sample-output-anonymized)  
-7. [Submission Deliverables](#-submission-deliverables)  
+1. [Project Overview](#project-overview)
+2. [System Architecture](#system-architecture)
+3. [Milestone 1 — Database & Extraction Foundation](#milestone-1--database--extraction-foundation)
+4. [Milestone 2 — Analysis Pipeline & Intermediate Web App](#milestone-2--analysis-pipeline--intermediate-web-app)
+5. [Milestone 3 — Full-Stack Application](#milestone-3--full-stack-application)
+6. [Scoring & Ranking Model](#scoring--ranking-model)
+7. [Setup & Installation](#setup--installation)
+8. [API Reference](#api-reference)
+9. [Configuration](#configuration)
 
 ---
 
 ## Project Overview
 
-TALASH is a **next-generation recruitment pipeline** designed for complex academic hiring workflows.  
+TALASH is a recruitment pipeline built for academic hiring workflows. It replaces manual CV review with an automated system that extracts structured data from PDF CVs, performs multi-dimensional candidate analysis, ranks candidates against each other, and drafts personalised follow-up emails for incomplete profiles.
 
-**Milestone 1** focuses on replacing manual CV data entry with an **autonomous, LLM-driven extraction and normalization pipeline**.
-
-### Core Capabilities
-
-- ** Robust PDF Ingestion**  
-  Extracts structured text from dense, multi-page academic CVs.
-
-- ** Autonomous Structuring**  
-  Uses Google Gemini to convert raw text into structured JSON.
-
-- **  Data Cleaning & Normalization**  
-  Handles GPA extraction, string normalization, and enum standardization.
-
-- ** Relational Storage**  
-  Stores parsed data across a **9-table PostgreSQL schema**.
+The system handles multi-candidate PDFs where each candidate section is delimited by the phrase "Candidate for the post of", extracts structured JSON via Google Gemini, analyzes education and experience timelines, scores candidates on a 100-point weighted rubric, and presents everything through a React frontend backed by a Flask API.
 
 ---
 
 ## System Architecture
 
-Pipeline Flow:
-
-> **PDF → Text Extraction → Prompt Engineering → Gemini → JSON Validation → Database Insertion**
-
-<p align="center">
-  <img src="assets/Architecture_Diagram.png" alt="System Architecture" width="800"/>
-</p>
+```
+PDF Upload
+  -> pdfplumber text extraction
+  -> split on "Candidate for the post of" delimiter
+  -> Google Gemini structured JSON extraction (with rule-based fallback)
+  -> normalization (university names, durations, enums)
+  -> candidate_database (in-memory, persisted to cv_extraction_results.json)
+  -> Milestone2Analysis engine
+  -> analysis_results.json cache
+  -> Flask REST API
+  -> React frontend
+```
 
 ---
 
-## Database Schema
+## Milestone 1 — Database & Extraction Foundation
 
-TALASH uses a **Hub-and-Spoke relational database model** for scalable querying and analytics.
+Milestone 1 established the extraction pipeline and relational database schema.
 
-<p align="center">
-  <img src="assets/ERD_TALASH.png" alt="ER Diagram" width="800"/>
-</p>
+**Deliverables:**
+- PDF ingestion via pdfplumber
+- Google Gemini prompt engineering for structured JSON output
+- 9-table PostgreSQL schema on Supabase (Hub-and-Spoke model)
+- JSONB extensibility, row-level security, indexed foreign keys
 
-### Highlights
+**Schema covers:** personal info, education, experience, skills, research outputs, supervision, certifications, awards, references.
 
-- **JSONB Extensibility** → Flexible metadata storage  
-- **Row-Level Security (RLS)** → Protects candidate data  
-- **Indexed Foreign Keys** → Fast joins and queries  
-
-2. Add secrets:
-
-   * GEMINI_API_KEY
-   * SUPABASE_URL
-   * SUPABASE_SERVICE_ROLE_KEY
-
+**Running on Kaggle:**
+1. Open the notebook in `milestone_1/`
+2. Add secrets: `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
 3. Upload CVs to `/kaggle/input/`
-
 4. Run all cells
 
----
-
-### Option B: Local Setup
-
-1. Clone repo:
-
-   ```bash
-   git clone https://github.com/mahmadr10/Talash-LLM_Project.git
-   cd Talash-LLM_Project/milestone_1
-   ```
-
-2. Setup environment:
-
-   ```bash
-   python -m venv venv
-   ```
-
-   Windows:
-
-   ```bash
-   venv\Scripts\activate
-   ```
-
-   macOS/Linux:
-
-   ```bash
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Create `.env`:
-
-   ```env
-   GEMINI_API_KEY=your_api_key
-   SUPABASE_URL=your_url
-   SUPABASE_SERVICE_ROLE_KEY=your_key
-   ```
-
-5. Add CVs → `input_cvs/`
-
-6. Run:
-
-   ```bash
-   python main.py
-   ```
-
----
-
-## Sample Output (Anonymized)
-
-*Note: Due to strict data privacy and PII protection policies, the raw academic CV datasets and full CSV exports are not included.*
-
----
-
-### 1. Raw PDF Input (Mock Example)
-
-```
-Dr. Jane Doe | jane.doe@email.com | +92-300-0000000  
-Education: PhD in Computer Science, FAST NUCES (2020) - CGPA: 3.9/4.0  
-Experience: Assistant Professor at NUST (2021-Present)
-```
-
----
-
-### 2. Extracted JSON (Gemini Output)
-
-```json
-{
-  "personal_info": {
-    "full_name": "Jane Doe",
-    "email": "jane.doe@email.com",
-    "phone_number": "+92-300-0000000",
-    "total_experience_years": 5.0,
-    "research_summary": "Focused on Artificial Intelligence and Large Language Models.",
-    "metadata": {
-      "date_of_birth": "1990-01-01",
-      "linkedin": "https://linkedin.com/in/janedoe"
-    }
-  },
-  "education": [
-    {
-      "degree_name": "PhD",
-      "specialization": "Computer Science",
-      "institution_name": "FAST NUCES",
-      "passing_year": 2020,
-      "grade_value": 3.9,
-      "grade_metric": "GPA",
-      "is_sse_hssc": false
-    }
-  ],
-  "experience": [
-    {
-      "job_title": "Assistant Professor",
-      "organization": "NUST",
-      "location": "Islamabad, Pakistan",
-      "start_date": "2021",
-      "end_date": "Present",
-      "is_current": true
-    }
-  ],
-  "certifications": [
-    {
-      "qualification_name": "Deep Learning Specialization",
-      "institution_name": "Coursera",
-      "passing_year": 2021
-    }
-  ],
-  "awards": [
-    {
-      "award_type": "Best Paper Award",
-      "detail": "IEEE International Conference on AI, 2022"
-    }
-  ],
-  "references_table": [
-    {
-      "reference_name": "Dr. John Smith",
-      "designation": "Professor",
-      "address": "FAST NUCES, Islamabad",
-      "phone": "+92-333-1111111",
-      "email": "john.smith@email.com"
-    }
-  ],
-  "research_outputs": [
-    {
-      "title": "Optimizing Transformers for Low-Resource Languages",
-      "venue_name": "ACL Proceedings",
-      "output_type": "Conference",
-      "publication_year": 2023,
-      "impact_factor": null,
-      "author_names": "Jane Doe, John Smith",
-      "research_topics": ["NLP", "Transformers", "LLMs"]
-    }
-  ],
-  "supervision": [
-    {
-      "student_name": "Ali Khan",
-      "degree_level": "MS",
-      "status": "Completed"
-    }
-  ],
-  "skills": [
-    {
-      "skill_name": "Python",
-      "skill_category": "Technical"
-    },
-    {
-      "skill_name": "PyTorch",
-      "skill_category": "Tool"
-    }
-  ]
-}
-```
-
----
-
-## Milestone 2: Core Extraction, Analysis Pipeline & Intermediate Web App  
-
-**Objective:** Build comprehensive CV analysis and candidate assessment system with web-based interface.
-
-### Milestone 2 Deliverables (25 marks total)
-
-| Criterion | Marks | Status |
-|-----------|-------|--------|
-| **CV Parsing & Structured Extraction** | 5 | ✅ Complete |
-| **Educational Profile Analysis** | 5 | ✅ Complete |
-| **Professional Experience Analysis** | 6 | ✅ Complete |
-| **Missing Info Detection & Email Drafting** | 4 | ✅ Complete |
-| **Intermediate Web Application** | 6 | ✅ Complete |
-| **TOTAL** | **25** | **✅ Complete** |
-
----
-
-### Milestone 2 Components
-
-#### 1️**CV Parsing & Structured Extraction** (5 marks)
-
-**Implemented Features:**
-- Folder-based CV ingestion (`cv_batch_processor.py`)
-- PDF text extraction using `pdfplumber`
-- Raw text preprocessing and cleaning
-- Structured JSON output generation
-- Google Gemini LLM integration ready (prompts prepared)
-
-**Code Location:** [`cv_batch_processor.py`](cv_batch_processor.py)
-
-```python
-processor = CVBatchProcessor('uploads', 'outputs')
-processor.process_folder()  # Processes all PDFs
-processor.save_results()    # Saves JSON
-```
-
-**Output Format:**
-```json
-{
-  "extraction_metadata": {
-    "generated_date": "2024-01-26T10:30:00",
-    "total_candidates": 4,
-    "extraction_method": "pdfplumber + Gemini"
-  },
-  "candidates": [
-    {
-      "candidates": {...},
-      "education": [...],
-      "experience": [...],
-      "skills": [...]
-    }
-  ]
-}
-```
-
----
-
-#### 2️ **Educational Profile Analysis** (5 marks)
-
-**Analysis Components:**
-- Degree sequence validation
-- Educational gaps detection  
-- Institution quality assessment (QS Ranking, THE Ranking)
-- Highest qualification identification
-- Grade/CGPA consistency check
-
-**Code Location:** [`milestone2.py` - `analyze_educational_profile()`](milestone2.py#L23)
-
-**Sample Output:**
-```python
-{
-  "education_analysis": {
-    "educational_gaps": ["No significant educational gaps detected."],
-    "institutional_quality": "2 out of 2 degrees are from ranked institutions.",
-    "highest_qualification": "MS Computer Science"
-  }
-}
-```
-
-**Key Insights:**
-- Validates progression from BS → MS → PhD
-- Flags unusually long gaps (>1 year between degrees)
-- Scores institutional prestige using Ranking DB
-- Detects missing grades/CGPAs
-
----
-
-#### 3️**Professional Experience Analysis** (6 marks)
-
-**Analysis Components:**
-- Timeline consistency validation (overlap detection)
-- Employment gap identification (>90 days flagged)
-- Career progression tracking
-- Job title sequence analysis
-- Duration-based seniority inference
-- Current employment status
-
-**Code Location:** [`milestone2.py` - `analyze_professional_experience()`](milestone2.py#L57)
-
-**Sample Output:**
-```python
-{
-  "experience_analysis": {
-    "timeline_overlaps": ["No job overlaps detected."],
-    "professional_gaps": ["No significant professional gaps detected."],
-    "career_progression": "Junior → Senior role progression detected"
-  }
-}
-```
-
-**Key Insights:**
-- Chronological validation (no overlaps)
-- Gap analysis with month-level precision
-- Identifies promotion patterns
-- Validates employment consistency
-
----
-
-#### 4️**Missing Information Detection & Email Drafting** (4 marks)
-
-**Detection Systems:**
-- ✅ Missing email detection
-- ✅ Phone number validation
-- ✅ Missing grades/CGPA flagging
-- ✅ Incomplete field detection
-
-**Email Drafting:**
-- ✅ Auto-generated personalized emails
-- ✅ Template-based missing field requests
-- ✅ Professional tone & formatting
-- ✅ Export-ready output
-
-**Code Location:** [`milestone2.py` - `detect_missing_information()`](milestone2.py#L113)
-
-**Sample Draft Email:**
-```
-Dear Ahmed Khan,
-
-Thank you for your interest. We are reviewing your application and noticed that the following information is missing or incomplete in your CV:
-
-- Grade/CGPA for one or more degrees
-- Research mentor contact details
-
-Could you please provide the missing details or upload an updated CV at your earliest convenience?
-
-Best regards,
-HR Team
-```
-
-**Features:**
-- Personalized with candidate name
-- Lists specific missing fields
-- Professional signature template
-- Ready to send via SMTP
-
----
-
-#### 5️**Intermediate Web Application** (6 marks)
-
-**Frontend Pages:** 8 interactive HTML pages
-
-| Page | Purpose | Features |
-|------|---------|----------|
-| [Login](frontend/login.html) | Authentication | TALASH branding, form validation |
-| [Dashboard](frontend/index.html) | Overview | 3 KPI cards, analysis queue, upload button |
-| [Candidates](frontend/candidates.html) | Ledger | Search, filter, profile links |
-| [Analysis Results](frontend/analysis.html) | **NEW** Detailed analysis | Educational/Experience/Skills/Missing Info tabs |
-| [Reports](frontend/reports.html) | **ENHANCED** Analytics | 4 interactive charts, trend visualization |
-| [Profile](frontend/profile.html) | Details | Score indicators, education/experience tables |
-| [Settings](frontend/settings.html) | Config | Profile, security, notification cards |
-| Archive | Help | System documentation |
-
-**Visualizations (Reports Page):**
-- core Distribution (histogram)
-- Profile Completion Status (doughnut)
-- Analysis Pipeline Trends (line chart)
-- Top Skills Distribution (horizontal bar)
-
-**Setup & Running:**
-
-Backend Server:
+**Running locally:**
 ```bash
-pip install -r requirements.txt
-python app.py
-# Runs on http://localhost:5000
-```
-
-Frontend:
-```bash
-cd frontend
-# Open login.html in browser (or use live server)
-```
-
-**API Endpoints:**
-```
-GET  /api/candidates                     - List all candidates
-GET  /api/candidate/<id>                 - Get candidate details
-GET  /api/analyze/<id>                   - Run analysis
-POST /api/upload                         - Upload CV
-GET  /api/dashboard-stats                - Dashboard KPIs
-GET  /api/reports-data                   - Reports metrics
-GET  /api/analysis-output/<id>           - Formatted analysis
-GET  /api/missing-info-email/<id>        - Draft email
-GET  /health                             - Server health check
-```
-
-**Design System:**
-- Figma-aligned CSS variables
-- Navy sidebar (#0f1b2d) with pale canvas (#fbf7f0)
-- Responsive grid layouts (3-column → mobile)
-- Professional shadow system
-- Status badges (COMPLETE, PROCESSING, PENDING)
-
-**Interactive Features:**
-- Tab navigation for analysis results
-- Chart.js visualization
-- Copy/Send email buttons
-- Export analysis to JSON
-- Candidate search and filtering
-
----
-
-### Running Milestone 2 Demo
-
-#### **Step 1: Generate Sample Data**
-```bash
-python sample_cv_generator.py
-# Generates: sample_cv_data.json
-```
-
-#### **Step 2: Start Backend**
-```bash
-python app.py
-# API server on http://localhost:5000
-```
-
-#### **Step 3: Run Analysis on Sample Candidates**
-```bash
-# Via API
-curl http://localhost:5000/api/analyze/1
-
-# Response: Full analysis with education, experience, skills, missing-info
-```
-
-#### **Step 4: View Web Dashboard**
-- Open `http://localhost:5000` in browser
-- Navigate through pages
-- Click "View Analysis" for detailed breakdowns
-- Check Reports for visualization charts
-
-#### **Step 5: Process CVs from Folder**
-```bash
-# Place PDFs in ./uploads/
-python cv_batch_processor.py
-# Processes all PDFs and saves to outputs/
-```
-
----
-
-### **File Structure - Milestone 2**
-
-```
-Talash-LLM_Project/
-│
-├── **Backend API**
-│   ├── app.py                           # Flask server with 8 API endpoints
-│   ├── cv_batch_processor.py            # Batch CV processing
-│   ├── sample_cv_generator.py           # Demo data generator
-│   └── milestone2.py                    # Analysis engine (4 analysis functions)
-│
-├── **Frontend Web App**
-│   ├── frontend/
-│   │   ├── login.html                   # Login page
-│   │   ├── index.html                   # Dashboard (3 stat cards, queue table)
-│   │   ├── candidates.html              # Candidate ledger (search, filter)
-│   │   ├── analysis.html                # NEW: Detailed analysis (4 tabs)
-│   │   ├── reports.html                 # ENHANCED: 4 interactive charts
-│   │   ├── profile.html                 # Candidate profile detail
-│   │   ├── settings.html                # Settings/config
-│   │   ├── css/
-│   │   │   └── style.css                # Figma-aligned design system
-│   │   └── js/
-│   │       └── main.js                  # Form handlers, file upload
-│   │
-│   └── **Data & Output**
-│       ├── uploads/                     # CVs to be processed
-│       ├── outputs/                     # Extraction results
-│       └── sample_cv_data.json          # Demo candidates
-│
-├── **Database Schema**
-│   └── milestone_1/schema.sql           # 9-table PostgreSQL schema
-│
-├── **Documentation**
-│   ├── README.md                        # This file
-│   ├── requirements.txt                 # Python dependencies
-│   └── assets/
-│       └── prototype                    # Figma design mockups
-│
-└── **Testing**
-    └── milestone2_analysis.py           # Analysis module placeholder
-
-```
-
-## Quick Start (Milestone 2)
-
-```bash
-# 1. Setup environment
+cd milestone_1
 python -m venv venv
-source venv/bin/activate  # or: venv\Scripts\activate on Windows
-
-# 2. Install dependencies  
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
+# create .env with GEMINI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+python main.py
+```
 
-# 3. Generate sample data
-python sample_cv_generator.py
+---
 
-# 4. Start backend
+## Milestone 2 — Analysis Pipeline & Intermediate Web App
+
+Milestone 2 built the core analysis engine and an HTML/Flask intermediate web interface.
+
+### CV Parsing and Structured Extraction
+
+Implemented in `milestone_2/cv_batch_processor.py`.
+
+- Scans an uploads folder for PDF files
+- Extracts text via pdfplumber
+- Splits multi-candidate PDFs on the "Candidate for the post of" delimiter (max 50 candidates per PDF)
+- Sends each chunk to Google Gemini with a structured schema prompt
+- Falls back to rule-based extraction if Gemini is unavailable
+- Runs a second dedicated Gemini call for publications if fewer than 5 are detected
+- Saves all results to `outputs/cv_extraction_results.json`
+
+```bash
+python cv_batch_processor.py
+```
+
+**Fields extracted:** full name, email, phone, DOB, education (degree, institution, grade, year, QS/THE ranking), experience (title, organisation, dates, duration), skills (with category), research outputs (title, venue, type, impact factor, topics, co-authors), supervision, patents, books, certifications, awards, references.
+
+### Educational Profile Analysis
+
+Implemented in `milestone_2/milestone2.py` — `analyze_educational_profile()`.
+
+- Validates degree progression (SSC → HSSC → BS → MS → PhD)
+- Flags educational gaps greater than 3 years
+- Assesses institutional quality using a ranked list of Pakistani and international universities
+- Identifies highest qualification
+- Detects missing grades/CGPA
+
+### Professional Experience Analysis
+
+Implemented in `milestone_2/milestone2.py` — `analyze_professional_experience()`.
+
+- Detects overlapping employment periods (tolerance: 31 days)
+- Flags gaps greater than 120 days
+- Tracks career progression (junior to senior role detection)
+- Calculates total estimated experience in years
+
+### Missing Information Detection and Email Drafting
+
+Implemented in `milestone_2/milestone2.py` — `detect_missing_information()`.
+
+Detects: missing email, missing phone, missing grades, missing job descriptions, missing DOIs on research outputs.
+
+Generates a personalised draft email listing the specific missing fields, addressed to the candidate by name, ready for SMTP delivery.
+
+### Intermediate Web Application
+
+Flask backend with HTML/CSS frontend and Chart.js visualisations.
+
+Pages: Login, Dashboard, Candidates, Analysis Results, Reports, Profile, Settings.
+
+```bash
+# Backend
 python app.py
+# Open http://localhost:5000
+```
 
-# 5. Open frontend
-# In browser: http://localhost:5000
-# Or open frontend/login.html directly
+---
+
+## Milestone 3 — Full-Stack Application
+
+Milestone 3 delivers the complete production-ready system with a React frontend, session-based authentication, email tracking, and the extra-credit quantifiable ranking module.
+
+### Demo Login
+
+| Username | Password | Access |
+|----------|----------|--------|
+| admin | admin123 | All candidates including seeded 43-candidate demo dataset |
+| recruiter | recruiter123 | Only candidates uploaded during the session |
+| user | user123 | Only candidates uploaded during the session |
+
+Passwords can be overridden via environment variables: `TALASH_ADMIN_PASSWORD`, `TALASH_RECRUITER_PASSWORD`, `TALASH_USER_PASSWORD`.
+
+### Running Milestone 3
+
+**Backend:**
+```bash
+cd milestone_3
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+# Runs on http://127.0.0.1:5000
+```
+
+**Frontend:**
+```bash
+cd milestone_3/frontend
+npm install
+npm start
+# Runs on http://localhost:3000
+```
+
+The backend loads `milestone_3/outputs/cv_extraction_results.json` when present. If not found, it falls back to the Milestone 2 extraction file and normalised CSV exports.
+
+### Frontend Components
+
+| Component | Purpose |
+|-----------|---------|
+| Dashboard | Stats cards, top candidates, CV upload, folder ingest |
+| Candidates | Searchable and filterable candidate ledger |
+| CandidateDetail | Full profile, score breakdown by component, email trigger |
+| Analysis | Tabbed view: Education / Experience / Research / Skills / Missing Info / Score |
+| Reports | Score distribution chart, research mix, top skills and topics, email tracking table |
+| Settings | User preferences (display name, timezone, notifications) |
+
+### Email Tracking
+
+By default email sending runs in dry-run mode so tracking works without SMTP credentials:
+
+```text
+TALASH_EMAIL_DRY_RUN=true
+```
+
+Each sent email gets a 16-character URL-safe tracking ID. A 1x1 pixel in the email footer records opens via `/api/email-track/<tracking_id>`. Opened/responded status is stored in `email_tracking.json`.
+
+To send real email:
+```text
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_address@gmail.com
+SMTP_APP_PASSWORD=your_app_password
+SMTP_FROM_EMAIL=your_address@gmail.com
+TALASH_EMAIL_DRY_RUN=false
+```
+
+---
+
+## Scoring & Ranking Model
+
+The ranking engine produces a score out of 100 across seven components.
+
+| Component | Weight | Details |
+|-----------|-------:|---------|
+| Education | 20 | Degree rank (SSC=2 to Postdoc=20), +1 bonus for GPA 3.5+ or 80%+ |
+| Research output | 25 | 1.4 pts/journal (max 10), 1.0 pts/conference (max 6), impact factor contribution (max 5), recent outputs within 5 years (max 4) |
+| Topic variability and co-author network | 10 | 0.35 pts per unique research topic, 0.18 pts per unique co-author |
+| Supervision, patents, books | 10 | 1.5 pts per completed supervision, 0.75 ongoing, 1.5 per patent, 1.5 per book |
+| Professional experience | 15 | 1.2 pts/year (max 11), 0.8 pts per academic/research role (max 4) |
+| Skill alignment | 10 | Based on match ratio against a required skills list |
+| Completeness | 10 | Starts at 10, minus 1.5 per missing field |
+
+**Ranking bands:**
+
+| Score | Band |
+|-------|------|
+| 85 - 100 | Highly Recommended |
+| 70 - 84 | Recommended |
+| 55 - 69 | Review |
+| 0 - 54 | Needs More Evidence |
+
+The score and band appear in the dashboard, candidate ledger, candidate detail report, comparative reports, and `/api/rankings`.
+
+---
+
+## API Reference
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/login` | POST | Session-based authentication |
+| `/api/logout` | POST | Clear session |
+| `/api/auth-status` | GET | Current auth state |
+| `/api/candidates` | GET | List all visible candidates (role-filtered) |
+| `/api/candidate/<id>` | GET | Full profile and analysis |
+| `/api/candidate/<id>` | DELETE | Remove candidate |
+| `/api/analyze/<id>` | POST | Force re-analysis |
+| `/api/analysis-output/<id>` | GET | Analysis JSON only |
+| `/api/rankings` | GET | All candidates sorted by score |
+| `/api/skill-alignment/<id>` | GET | Skill alignment breakdown |
+| `/api/upload` | POST | Single PDF upload and extraction |
+| `/api/ingest-folder` | POST | Batch process a folder |
+| `/api/uploads` | GET | List uploaded files |
+| `/api/upload/<filename>` | DELETE | Delete uploaded file |
+| `/api/dashboard-stats` | GET | Totals, average score, flagged count |
+| `/api/tabular-output` | GET | Candidate row data for tables |
+| `/api/reports-data` | GET | Score distribution, research mix, top skills and topics |
+| `/api/missing-info-email/<id>` | GET | Draft missing info email |
+| `/api/send-missing-info-email/<id>` | POST | Queue or send missing info email |
+| `/api/email-track/<tracking_id>` | GET | Pixel open-tracking endpoint |
+| `/api/email-tracking` | GET | List all tracked emails |
+| `/api/email-response/<tracking_id>` | POST | Mark email as responded |
+| `/api/rubric-status` | GET | Feature completion status |
+| `/health` | GET | Health check |
+
+---
+
+## Configuration
+
+All configuration is via environment variables, typically stored in a `.env` file in `milestone_3/`.
+
+```text
+# Gemini
+GEMINI_API_KEY=
+GEMINI_MODEL_NAME=gemini-3.1-flash-lite-preview
+TALASH_GEMINI_MODELS=          # comma-separated fallback models
+TALASH_DISABLE_GEMINI=false
+TALASH_GEMINI_COOLDOWN_SECONDS=2.0
+
+# Auth
+SECRET_KEY=                    # auto-generated if not set
+TALASH_ADMIN_PASSWORD=admin123
+TALASH_RECRUITER_PASSWORD=recruiter123
+TALASH_USER_PASSWORD=user123
+
+# Email
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=
+SMTP_APP_PASSWORD=
+SMTP_FROM_EMAIL=
+SMTP_USE_TLS=true
+TALASH_EMAIL_DRY_RUN=true
+
+# Server
+PORT=5000
+```
+
+---
+
+## File Structure
+
+```text
+Talash-LLM_Project/
+├── README.md
+├── milestone_1/
+│   ├── cv_extraction_pipeline.ipynb
+│   ├── schema.sql
+│   └── requirements.txt
+├── milestone_2/
+│   ├── cv_batch_processor.py
+│   ├── milestone2.py
+│   ├── app.py
+│   ├── sample_cv_generator.py
+│   ├── frontend/                  # HTML/CSS intermediate web app
+│   ├── uploads/
+│   ├── outputs/
+│   └── requirements.txt
+└── milestone_3/
+    ├── app.py                     # Flask API server
+    ├── milestone2.py              # Analysis and ranking engine
+    ├── cv_batch_processor.py      # Batch PDF processor
+    ├── frontend/                  # React + Vite application
+    │   └── src/
+    │       └── components/
+    ├── uploads/
+    ├── outputs/
+    │   ├── cv_extraction_results.json
+    │   ├── analysis_results.json
+    │   └── email_tracking.json
+    └── requirements.txt
 ```
 
 ---
 
 ## References
 
-- [Google Generative AI](https://ai.google.dev/)
-- [Supabase Documentation](https://supabase.com/docs)
-- [pdfplumber](https://github.com/jsvine/pdfplumber)
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [Chart.js](https://www.chartjs.org/)
-
----
+- Google Generative AI: https://ai.google.dev/
+- pdfplumber: https://github.com/jsvine/pdfplumber
+- Flask: https://flask.palletsprojects.com/
+- React: https://react.dev/
+- Chart.js: https://www.chartjs.org/
+- Supabase: https://supabase.com/docs
