@@ -2,12 +2,6 @@
 
 An intelligent CV parsing and candidate assessment system powered by Google Gemini.
 
-**Course:** CS-417 Large Language Models — Spring 2026  
-**University:** NUST Islamabad  
-**Instructor:** Prof. Dr. Muhammad Moazam Fraz  
-**Team:** Nameer Ahmed (454029), Rimsha Mahmood (455080), Muhammad Ahmad (461348)  
-**Repository:** https://github.com/mahmadr10/Talash-LLM_Project
-
 ---
 
 ## Table of Contents
