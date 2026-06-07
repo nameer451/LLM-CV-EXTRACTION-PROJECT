@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Analysis Results</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .analysis-tabs {
+            display: flex;
+            gap: 12px;
+            margin: 24px 0;
+            border-bottom: 1px solid #e0ddd7;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #7a7268;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            color: #0f1b2d;
+            border-bottom-color: #0f1b2d;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .analysis-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(18, 24, 38, 0.04);
+        }
+        .analysis-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0f1b2d;
+        }
+        .analysis-box p {
+            margin: 8px 0;
+            color: #5a5250;
+            line-height: 1.6;
+        }
+        .analysis-box ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+        .analysis-box li {
+            margin: 6px 0;
+            color: #5a5250;
+        }
+        .email-draft {
+            background: #f5f2ee;
+            border: 1px solid #dbd5cc;
+            padding: 16px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #3a3530;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .action-buttons {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+        }
+        .btn-secondary {
+            padding: 8px 12px;
+            border: 1px solid #dbd5cc;
+            background: transparent;
+            border-radius: 4px;
+            color: #0f1b2d;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            border-color: #0f1b2d;
+        }
+        .score-badge {
+            display: inline-block;
+            background: #0f1b2d;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TALASH</h1>
+                <p>ANALYTICAL LEDGER</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">DASHBOARD</a></li>
+                    <li><a href="candidates.html">CANDIDATES</a></li>
+                    <li class="active"><a href="analysis.html">ANALYSIS</a></li>
+                    <li><a href="reports.html">REPORTS</a></li>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="settings.html">SETTINGS</a></li>
+                </ul>
+            </nav>
+            <div class="upload-cv-sidebar">
+                <label for="cv-upload-input" class="btn-secondary">UPLOAD CV</label>
+                <input type="file" id="cv-upload-input" style="display: none;">
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="SEARCH CANDIDATES...">
+                </div>
+                <div class="user-profile">
+                    <div class="profile">
+                        <span>PROFILE</span>
+                        <span class="avatar-icon" aria-label="User Avatar" role="img">👤</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="page-title">Analysis Results</h2>
+                    <p class="page-subtitle">Detailed candidate breakdown and validation insights</p>
+                </div>
+                <a class="btn-primary" href="candidates.html">Back to candidates</a>
+            </div>
+
+            <!-- Candidate Info Box - DYNAMICALLY LOADED ONLY -->
+            <div class="analysis-box">
+                <h4>Candidate Information</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div>
+                        <p><strong>Name:</strong> <span id="candidateName">Loading...</span></p>
+                        <p><strong>Email:</strong> <span id="candidateEmail">Loading...</span></p>
+                        <p><strong>Phone:</strong> <span id="candidatePhone">Loading...</span></p>
+                    </div>
+                    <div>
+                        <p><strong>Analysis Date:</strong> <span id="analysisDate">Loading...</span></p>
+                        <p><strong>Profile Status:</strong> <span class="score-badge" id="profileStatus">LOADING</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="analysis-tabs">
+                <button class="tab-btn active" onclick="switchTab('education')">Educational Profile</button>
+                <button class="tab-btn" onclick="switchTab('experience')">Professional Experience</button>
+                <button class="tab-btn" onclick="switchTab('skills')">Skill Alignment</button>
+                <button class="tab-btn" onclick="switchTab('missing')">Missing Information</button>
+            </div>
+
+            <!-- TAB 1: Educational Profile Analysis -->
+            <div id="education" class="tab-content active">
+                <div class="analysis-box">
+                    <p>Loading educational data...</p>
+                </div>
+            </div>
+
+            <!-- TAB 2: Professional Experience Analysis -->
+            <div id="experience" class="tab-content">
+                <div class="analysis-box">
+                    <p>Loading experience data...</p>
+                </div>
+            </div>
+
+            <!-- TAB 3: Skill Alignment -->
+            <div id="skills" class="tab-content">
+                <div class="analysis-box">
+                    <p>Loading skills data...</p>
+                </div>
+            </div>
+
+            <!-- TAB 4: Missing Information -->
+            <div id="missing" class="tab-content">
+                <div class="analysis-box">
+                    <p>Loading missing information...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function switchTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyToClipboard() {
+            const emailText = document.querySelector('.email-draft')?.textContent || '';
+            navigator.clipboard.writeText(emailText).then(() => {
+                alert('Email draft copied to clipboard!');
+            });
+        }
+
+        async function sendEmail() {
+            const params = new URLSearchParams(window.location.search);
+            const candidateId = params.get('id') || localStorage.getItem('talashLastCandidateId') || '1';
+            const draftBody = document.getElementById('draftEmail')?.textContent || '';
+
+            try {
+                const response = await fetch(`/api/send-missing-info-email/${candidateId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ body: draftBody })
+                });
+                const payload = await response.json();
+                if (!response.ok) {
+                    throw new Error(payload.error || 'Email send failed');
+                }
+                alert(`Email sent successfully to ${payload.email.to}`);
+            } catch (error) {
+                alert(`Could not send email: ${error.message}`);
+            }
+        }
+
+        function exportAnalysis() {
+            const name = document.getElementById('candidateName').textContent;
+            const analysis = {
+                candidate: name,
+                date: new Date().toISOString(),
+                profileStatus: document.getElementById('profileStatus').textContent
+            };
+            const dataStr = JSON.stringify(analysis, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `analysis_${name}_${new Date().getTime()}.json`;
+            link.click();
+        }
+
+        async function loadAnalysisFromBackend() {
+            const params = new URLSearchParams(window.location.search);
+            const candidateId = params.get('id') || localStorage.getItem('talashLastCandidateId') || '1';
+
+            try {
+                // Load candidate info
+                const candidateResponse = await fetch(`/api/candidate/${candidateId}`);
+                if (candidateResponse.ok) {
+                    const candidate = await candidateResponse.json();
+                    document.getElementById('candidateName').textContent = candidate.name || 'Unknown';
+                    document.getElementById('candidateEmail').textContent = candidate.email || 'N/A';
+                    document.getElementById('candidatePhone').textContent = candidate.phone || 'N/A';
+                    document.getElementById('analysisDate').textContent = new Date().toISOString().split('T')[0];
+                }
+
+                // Load analysis
+                const analysisResponse = await fetch(`/api/analysis-output/${candidateId}`);
+                if (analysisResponse.ok) {
+                    const analysis = await analysisResponse.json();
+
+                    // Update Education tab
+                    const educationTab = document.getElementById('education');
+                    if (educationTab && analysis.education_analysis) {
+                        const edu = analysis.education_analysis;
+                        educationTab.innerHTML = `
+                            <div class="analysis-box">
+                                <h4>Educational Profile Analysis</h4>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Highest Qualification</h5>
+                                    <p>${edu.highest_qualification || 'Not specified'}</p>
+                                </div>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Institutional Quality Assessment</h5>
+                                    <p>${edu.institutional_quality || 'Not specified'}</p>
+                                </div>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Educational Gaps</h5>
+                                    ${edu.educational_gaps && edu.educational_gaps.length > 0 ? (Array.isArray(edu.educational_gaps) ? 
+                                        `<ul>${edu.educational_gaps.map(g => `<li>${g}</li>`).join('')}</ul>` :
+                                        `<p>${edu.educational_gaps}</p>`) : '<p>✓ No significant educational gaps detected</p>'}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Update Experience tab
+                    const experienceTab = document.getElementById('experience');
+                    if (experienceTab && analysis.experience_analysis) {
+                        const exp = analysis.experience_analysis;
+                        experienceTab.innerHTML = `
+                            <div class="analysis-box">
+                                <h4>Professional Experience Analysis</h4>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Employment History</h5>
+                                    <p>${exp.employment_history_count || 0} positions held</p>
+                                </div>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Career Progression</h5>
+                                    <p>${exp.career_progression || 'Not specified'}</p>
+                                </div>
+                                <div style="margin: 16px 0;">
+                                    <h5 style="color: #0f1b2d; font-weight: 600; margin-bottom: 8px;">Timeline Consistency</h5>
+                                    ${exp.professional_gaps && exp.professional_gaps.length > 0 ? `<p>✓ ${exp.professional_gaps.join(', ')}</p>` : '<p>✓ No significant professional gaps detected</p>'}
+                                    ${exp.timeline_overlaps && exp.timeline_overlaps.length > 0 ? `<p>✓ ${exp.timeline_overlaps.join(', ')}</p>` : '<p>✓ No job overlaps detected</p>'}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Update Skills tab
+                    const skillsTab = document.getElementById('skills');
+                    if (skillsTab && analysis.skill_alignment) {
+                        skillsTab.innerHTML = `
+                            <div class="analysis-box">
+                                <h4>Skill Alignment Analysis</h4>
+                                <p>${typeof analysis.skill_alignment === 'string' ? analysis.skill_alignment : JSON.stringify(analysis.skill_alignment, null, 2)}</p>
+                            </div>
+                        `;
+                    }
+
+                    // Update Missing Information tab
+                    const missingTab = document.getElementById('missing');
+                    if (missingTab && analysis.missing_information) {
+                        const missing = analysis.missing_information;
+                        const fields = Array.isArray(missing.missing_fields) ? missing.missing_fields : 
+                                      typeof missing.missing_fields === 'string' ? missing.missing_fields.split('\n').filter(f => f.trim()) : [];
+
+                        missingTab.innerHTML = `
+                            <div class="analysis-box">
+                                <h4>Data Completeness Check</h4>
+                                <p style="color: #0f1b2d; font-weight: 600; margin-bottom: 12px;">
+                                    ${fields.length === 0 ? '✓ Status: No critical information missing' : '⚠ Status: Missing information detected'}
+                                </p>
+                                ${fields.length === 0 ? 
+                                    '<p style="font-size: 12px; color: #7a7268;">All essential fields are present.</p>' :
+                                    `<ul>${fields.map(f => `<li>${f}</li>`).join('')}</ul>`}
+                            </div>
+                            <div class="analysis-box">
+                                <h4>Personalized Draft Email</h4>
+                                <div class="email-draft" id="draftEmail">${missing.draft_email || 'No email template available'}</div>
+                                <div class="action-buttons">
+                                    <button class="btn-secondary" onclick="copyToClipboard()">Copy Email</button>
+                                    <button class="btn-secondary" onclick="sendEmail()">Send Email</button>
+                                    <button class="btn-secondary" onclick="exportAnalysis()">Export Analysis</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    document.getElementById('profileStatus').textContent = 'COMPLETE';
+                }
+            } catch (error) {
+                console.error('Failed to load analysis:', error);
+                alert('Error loading analysis. Make sure the backend is running.');
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadAnalysisFromBackend);
+    </script>
+</body>
+</html>

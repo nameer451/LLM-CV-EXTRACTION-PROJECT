@@ -1,0 +1,41 @@
+candidate_id,skill_name,skill_category
+2,Wireless Communication,Technical
+2,Convex Engineering Optimization,Technical
+2,Telecommunication,Technical
+5,Computer Programming,Technical
+5,Computer Hardware,Technical
+5,Internet Programming,Technical
+5,Embedded Systems,Technical
+5,Digital Electronics,Technical
+5,Database Systems,Technical
+5,Computer Architecture,Technical
+5,ASIC,Technical
+8,Wireless Communication,Technical
+8,Deep Reinforcement Learning,Technical
+8,Radar Signal Processing,Technical
+8,Network Optimization,Technical
+10,Pedagogical Skills,Soft
+10,English Language,Soft
+10,CIT,Tool
+11,Computer Vision,Research
+11,Signal and Image Processing,Research
+13,Power electronics,Technical
+13,Machine learning,Technical
+13,TinyML,Technical
+13,Data Analytics,Technical
+13,Programmable Logic Controller,Tool
+16,PEC Membership (COMP/11604),Technical
+16,"Reviewer: PLOS ONE, IEEE Access, IEEE Transactions on Cybernetics, IEEE Sensors, MDPI Sensors",Research
+16,"Program Committee Member: IEEE EDUCON, IEEE INMIC",Research
+19,Electrical Engineering,Technical
+19,Metaheuristic Optimization,Research
+25,Remote Sensing,Technical
+25,SAR Imagery,Technical
+25,Signal Processing,Technical
+32,Artificial Intelligence,Technical
+32,Reinforcement Learning,Technical
+32,Speech Processing,Technical
+35,Android Development,Technical
+35,LINUX,Technical
+35,RHCSA,Technical
+35,RHCE,Technical

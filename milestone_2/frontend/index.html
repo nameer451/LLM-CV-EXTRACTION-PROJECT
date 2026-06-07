@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Recruiter Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TALASH</h1>
+                <p>ANALYTICAL LEDGER</p>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="index.html">DASHBOARD</a></li>
+                    <li><a href="candidates.html">CANDIDATES</a></li>
+                    <li><a href="analysis.html">ANALYSIS</a></li>
+                    <li><a href="reports.html">REPORTS</a></li>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="settings.html">SETTINGS</a></li>
+                </ul>
+            </nav>
+            <div class="upload-cv-sidebar">
+                 <label for="cv-upload-input" class="btn-secondary">UPLOAD CV</label>
+                 <input type="file" id="cv-upload-input" style="display: none;">
+            </div>
+        </aside>
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="SEARCH CANDIDATE LEDGER...">
+                </div>
+                <div class="user-profile">
+                    <span class="notifications"></span>
+                    <span class="help"></span>
+                    <div class="profile">
+                        <span>PROFILE</span>
+                        <span class="avatar-icon" aria-label="User Avatar" role="img">👤</span>
+                    </div>
+                </div>
+            </header>
+            <section class="dashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="page-title">Recruiter Dashboard</h2>
+                        <p class="page-subtitle"></p>
+                    </div>
+                     <label for="cv-upload-main" class="btn-primary">UPLOAD CV</label>
+                     <input type="file" id="cv-upload-main" style="display: none;">
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>TOTAL CANDIDATES</h3>
+                        <p class="stat-number">--</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ANALYSIS COMPLETE</h3>
+                        <p class="stat-number">--</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>FLAGGED PROFILES</h3>
+                        <p class="stat-number">--</p>
+                    </div>
+                </div>
+                <div class="analysis-queue">
+                    <div class="queue-header">
+                        <h3>ACTIVE ANALYSIS QUEUE</h3>
+                        <div class="queue-actions">
+                            <button>FILTER</button>
+                            <button>EXPORT LEDGER</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CANDIDATE NAME</th>
+                                <th>UPLOAD DATE</th>
+                                <th>ANALYSIS STATUS</th>
+                                <th>OVERALL SCORE</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardTableBody">
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span id="dashboardPageInfo"></span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

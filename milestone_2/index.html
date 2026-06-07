@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Talent Acquisition System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0f1b2d;
+            --canvas: #fbf7f0;
+            --surface: #ffffff;
+            --gold: #d4a574;
+            --shadow: 0 14px 30px rgba(18, 24, 38, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--canvas) 0%, #f5f2ee 100%);
+            color: #3a3530;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a2d4a 100%);
+            color: var(--surface);
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--surface);
+            border: 2px solid var(--surface);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+            color: var(--navy);
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--surface);
+            padding: 80px 20px;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 64px;
+            color: var(--navy);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: var(--canvas);
+            padding: 32px;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--navy);
+        }
+
+        .feature-card p {
+            color: #7a7268;
+            line-height: 1.7;
+        }
+
+        /* Statistics Section */
+        .stats {
+            background: var(--navy);
+            color: var(--surface);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item h4 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: 80px 20px;
+            background: var(--canvas);
+        }
+
+        .capabilities-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .capabilities-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .capability-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .capability-item .check {
+            font-size: 24px;
+            color: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .capability-item h4 {
+            color: var(--navy);
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        .capability-item p {
+            color: #7a7268;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--surface);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .capabilities-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Optional) -->
+    <nav style="background: var(--navy); padding: 16px 20px; position: fixed; width: 100%; top: 0; z-index: 1000;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 24px; font-weight: 800; color: var(--gold);">TALASH</div>
+            <div style="display: flex; gap: 24px;">
+                <a href="frontend/login.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase;">Access App</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="margin-top: 60px;">
+        <h1>TALASH</h1>
+        <div class="subtitle">Smart Recruitment Through Intelligent CV Analysis</div>
+        <p>Stop spending hours reading CVs. TALASH automatically analyzes candidate profiles, highlights key strengths, and flags potential concerns. Get insights in seconds, not hours.</p>
+        
+        <div class="cta-buttons">
+            <a href="frontend/login.html" class="btn btn-primary">Start Now</a>
+            <a href="#features" class="btn btn-secondary">See What It Does</a>
+        </div>
+
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>1,284+</h4>
+                    <p>CVs Analyzed</p>
+                </div>
+                <div class="stat-item">
+                    <h4>85.8%</h4>
+                    <p>Processed</p>
+                </div>
+                <div class="stat-item">
+                    <h4>42</h4>
+                    <p>Issues Found</p>
+                </div>
+                <div class="stat-item">
+                    <h4>98%</h4>
+                    <p>Accurate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">What We Do</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Read Any CV</h3>
+                    <p>Upload PDFs and get structured data instantly. No manual data entry. We handle the dirty work of parsing complex CV formats.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Check Education</h3>
+                    <p>See where candidates studied, what they studied, and how well they did. We flag unusual gaps or inconsistencies automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Understand Experience</h3>
+                    <p>Track career journey from start to now. Spot employment gaps, role transitions, and clear growth patterns at a glance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Verify Skills</h3>
+                    <p>Do their skills match their job history? We cross-check claimed abilities against actual work experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Ask for What's Missing</h3>
+                    <p>Missing email or phone? We draft personalized messages automatically. Copy, customize, and send in seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>See It All at a Glance</h3>
+                    <p>Browse candidates, compare profiles, view detailed analysis, and spot patterns across your entire candidate pool.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="capabilities">
+        <div class="capabilities-container">
+            <h2 class="section-title">Why Use TALASH?</h2>
+            <div class="capabilities-list">
+                <div class="capability-item">
+                    <div class="check">01</div>
+                    <div>
+                        <h4>Save Hours</h4>
+                        <p>Analyze CVs in seconds instead of hours</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">02</div>
+                    <div>
+                        <h4>Consistency</h4>
+                        <p>Every candidate evaluated the same way</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">03</div>
+                    <div>
+                        <h4>See Red Flags</h4>
+                        <p>Find gaps and inconsistencies automatically</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">04</div>
+                    <div>
+                        <h4>Real Data</h4>
+                        <p>Work with structured information, not scattered text</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">05</div>
+                    <div>
+                        <h4>Smart Communication</h4>
+                        <p>Auto-draft follow-up messages to candidates</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">06</div>
+                    <div>
+                        <h4>Compare Everyone</h4>
+                        <p>View all candidates side-by-side instantly</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">07</div>
+                    <div>
+                        <h4>Build Better Hires</h4>
+                        <p>Make decisions based on complete information</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <div class="check">08</div>
+                    <div>
+                        <h4>Get Started Today</h4>
+                        <p>No setup needed. Upload and analyze instantly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>TALASH © 2024 | Intelligent Recruitment Technology</p>
+        <p style="margin-top: 12px; opacity: 0.6; font-size: 12px;">
+            Made by developers for recruiters. Simple. Fast. Accurate.
+        </p>
+    </footer>
+</body>
+</html>

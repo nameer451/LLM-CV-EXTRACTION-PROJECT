@@ -1,0 +1,44 @@
+candidate_id,filename,extraction_date,status, name, email, phone_number, research_summary
+1,Handler (8)_candidate_02.pdf,2026-04-26T22:24:32.852198,extracted,MUHAMMAD SALMAN,,,Assistant Professor candidate in Electrical & Computer Engineering
+2,Handler (8)_candidate_03.pdf,2026-04-26T22:25:03.784860,extracted,Aamina Akbar,,,"Expertise in Electrical (Communication) Engineering, Wireless Communication, Convex Engineering Optimization, and Telecommunications."
+3,Handler (8)_candidate_04.pdf,2026-04-26T22:25:08.846150,extracted,MUHAMMAD SHAHWAZ,,,
+4,Handler (8)_candidate_05.pdf,2026-04-26T22:25:15.038696,extracted,shaheer,,,
+5,Handler (8)_candidate_06.pdf,2026-04-26T22:25:22.217210,extracted,Nasir Ali Shah,,,
+6,Handler (8)_candidate_07.pdf,2026-04-26T22:25:27.569458,extracted,Muhammad Farrukh Qureshi,,,"Deep Learning, Signal Processing, Hardware AI"
+7,Handler (8)_candidate_08.pdf,2026-04-26T22:25:35.466071,extracted,Idris Khan,,,"Expertise in Electrical Engineering, specifically in renewable power systems, photovoltaic power forecasting, and nanomaterials in organic solar cells."
+8,Handler (8)_candidate_09.pdf,2026-04-26T22:25:56.615099,extracted,MUHAMMAD MAJID,,,"Assistant Professor candidate with expertise in Electrical & Computer Engineering, focusing on wireless communication, radar anti-jamming, and reinforcement learning."
+9,Handler (8)_candidate_10.pdf,2026-04-26T22:26:04.106863,extracted,Muhammad Sarmad Tariq,,,"Expertise in Electrical Engineering, specifically Power Systems, with a focus on solar PV systems, harmonic analysis, and power flow optimization."
+10,Handler (8)_candidate_11.pdf,2026-04-26T22:26:10.797384,extracted,Farman Ali,,,
+11,Handler (8)_candidate_12.pdf,2026-04-26T22:26:28.333633,extracted,Fiza Murtaza,,,"Expertise in Computer Vision, Temporal Human Action Detection, Signal and Image Processing."
+12,Handler (8)_candidate_13.pdf,2026-04-26T22:26:37.760604,extracted,tayyaba gull,,,
+13,Handler (8)_candidate_14.pdf,2026-04-26T22:27:03.912507,extracted,Muhammad Abubakar,,,"Power electronics, renewable energy, power quality, machine learning, TinyML, Federated Learning"
+14,Handler (8)_candidate_15.pdf,2026-04-26T22:27:11.017667,extracted,Fahd Sikandar Khan,,,
+15,Handler (8)_candidate_16.pdf,2026-04-26T22:27:17.835899,extracted,Usman Masud,,,
+16,Handler (8)_candidate_17.pdf,2026-04-26T22:27:27.945306,extracted,Muhammad Ehatisham,,,"Multimodal Data Processing and Machine Learning, Artificial Intelligence and Pervasive Computing, Signal and Image Processing"
+17,Handler (8)_candidate_18.pdf,2026-04-26T22:27:54.652942,extracted,Waqas Amin,,,"Energy Policy, Energy Trading, Smart Grid Technology"
+18,Handler (8)_candidate_19.pdf,2026-04-26T22:28:02.880991,extracted,SYED TAMOORULHASSAN,,,
+19,Handler (8)_candidate_20.pdf,2026-04-26T22:28:09.937706,extracted,Manzoor Ellahi,,,Development of Improved Metaheuristic Optimization Algorithms for Optimal Economic Dispatch of Renewable Energy Sources.
+20,Handler (8)_candidate_21.pdf,2026-04-26T22:28:17.693773,extracted,Sarosh Tahir,,,"Researcher at Italian National Research Council, Pisa"
+21,Handler (8)_candidate_22.pdf,2026-04-26T22:28:23.648328,extracted,M. Usman Abbasi,,,Assistant Professor - Electrical & Computer Engineering
+22,Handler (8)_candidate_23.pdf,2026-04-26T22:28:31.470287,extracted,Muzzamil Ghaffar,,,"Mechatronics/ AI, Energy conservation, Building management, Non-Intrusive Load Monitoring"
+23,Handler (8)_candidate_24.pdf,2026-04-26T22:28:37.829489,extracted,Qaisar Hussain Alvi,,,
+24,Handler (8)_candidate_25.pdf,2026-04-26T22:28:52.402363,extracted,Suhail Asghar Qureshi,,,"Assistant Professor candidate for ECE at SEECS with a focus on Electrical Telecommunication Engineering, specifically THz metamaterials and reflectarray antennas."
+25,Handler (8)_candidate_26.pdf,2026-04-26T22:29:00.261264,extracted,Muhammad Amjad,,,"Researcher specializing in Remote Sensing, SAR imagery, Signal Processing, and Radar systems."
+26,Handler (8)_candidate_27.pdf,2026-04-26T22:29:06.842382,extracted,Qamar Abbas,,,
+27,Handler (8)_candidate_28.pdf,2026-04-26T22:29:15.124808,extracted,Shahzad,,,
+28,Handler (8)_candidate_29.pdf,2026-04-26T22:29:24.253660,extracted,Matiullah Ahsan,,,"Electrical Power System, High Voltage, Artificial Intelligence"
+29,Handler (8)_candidate_30.pdf,2026-04-26T22:29:30.389148,extracted,Samana Batool,,,Artificial Intelligence in medical domain
+30,Handler (8)_candidate_31.pdf,2026-04-26T22:29:38.438023,extracted,Asim Masood,,,"Machine Learning, Artificial Intelligence, Speech Processing, Natural Language Processing"
+31,Handler (8)_candidate_32.pdf,2026-04-26T22:29:52.119455,extracted,Syed Fasih Ali Gardazi,,,
+32,Handler (8)_candidate_33.pdf,2026-04-26T22:30:04.756737,extracted,Sania Gul,,,"Researcher with extensive background in Electrical Engineering, specializing in AI, speech separation, denoising, and reinforcement learning."
+33,Handler (8)_candidate_34.pdf,2026-04-26T22:30:11.046029,extracted,Muhammad Musadiq,,,
+34,Handler (8)_candidate_35.pdf,2026-04-26T22:30:20.941640,extracted,Muhammad Saqib,,,Electronic Energy Harvesting and Self-Powered Sensor
+35,Handler (8)_candidate_36.pdf,2026-04-26T22:30:27.335931,extracted,Abdur Rehman,,,"Design of PM Machines, especially flux modulation machines"
+36,Handler (8)_candidate_37.pdf,2026-04-26T22:30:33.334784,extracted,Saman Fatima,,,Assistant Professor specializing in Microelectronics and Analog IC Design.
+37,Handler (8)_candidate_38.pdf,2026-04-26T22:30:53.159635,extracted,Muhammad Aqeel,,,
+38,Handler (8)_candidate_39.pdf,2026-04-26T22:30:57.817885,extracted,Saqib Jamil,,,
+39,Handler (8)_candidate_40.pdf,2026-04-26T22:31:07.039700,extracted,Zeeshan,,,
+40,Handler (8)_candidate_41.pdf,2026-04-26T22:31:13.383888,extracted,Waqas Tariq Toor,,,
+41,Handler (8)_candidate_42.pdf,2026-04-26T22:32:11.517687,extracted,Handler (8)_candidate_42,saleem.buic@bahria.edu.pk,00 173 173,
+42,Handler (8)_candidate_43.pdf,2026-04-26T22:32:19.644410,extracted,Ahmed Naeem,,,"Research Assistant at Communication, Signal Processing, and Networking Center (CoSiNC) specializing in Wireless Communication Technologies, Cyber Systems, Cyber Security, and Machine Learning."
+43,Handler (8)_candidate_44.pdf,2026-04-26T22:32:26.000788,extracted,MUHAMMAD ADEEL ALTAF,,,

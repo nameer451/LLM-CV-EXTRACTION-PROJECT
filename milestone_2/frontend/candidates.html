@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Candidates</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TALASH</h1>
+                <p>ANALYTICAL LEDGER</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">DASHBOARD</a></li>
+                    <li class="active"><a href="candidates.html">CANDIDATES</a></li>
+                    <li><a href="analysis.html">ANALYSIS</a></li>
+                    <li><a href="reports.html">REPORTS</a></li>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="settings.html">SETTINGS</a></li>
+                </ul>
+            </nav>
+            <div class="upload-cv-sidebar">
+                <label for="cv-upload-input" class="btn-secondary">UPLOAD CV</label>
+                <input type="file" id="cv-upload-input" style="display: none;">
+            </div>
+        </aside>
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="SEARCH CANDIDATE LEDGER...">
+                </div>
+                <div class="user-profile">
+                    <div class="profile">
+                        <span>PROFILE</span>
+                        <span class="avatar-icon" aria-label="User Avatar" role="img">👤</span>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="page-title">Candidate Ledger</h2>
+                    <p class="page-subtitle">Browse, filter, and open candidate profiles</p>
+                </div>
+                <a class="btn-primary" href="index.html">Back to dashboard</a>
+            </div>
+            <section class="analysis-queue">
+                <div class="queue-header">
+                    <h3>CANDIDATE LIST</h3>
+                    <div class="queue-actions">
+                        <button>FILTER</button>
+                        <button>EXPORT LEDGER</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CANDIDATE NAME</th>
+                            <th>UPLOAD DATE</th>
+                            <th>ANALYSIS STATUS</th>
+                            <th>OVERALL SCORE</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidatesTableBody">
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span>DISPLAYING 3 OF 1,284 CANDIDATE RECORDS</span>
+                    <div>
+                        <a href="index.html">PREV</a>
+                        <a href="#" class="active">01</a>
+                        <a href="#">02</a>
+                        <a href="#">03</a>
+                        <a href="#">NEXT</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

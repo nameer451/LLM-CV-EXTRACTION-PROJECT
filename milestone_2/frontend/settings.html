@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-panel {
+            background: #ffffff;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 18px;
+            border-left: 3px solid #0f1b2d;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .settings-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .settings-field label {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            color: #5d6472;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .settings-field input,
+        .settings-field select {
+            height: 38px;
+            border: 1px solid #d9d1c4;
+            background: #eee9df;
+            padding: 0 10px;
+            color: #121826;
+            border-radius: 2px;
+        }
+
+        .settings-toggle-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .settings-toggle {
+            background: #f5f2ee;
+            border: 1px solid #dbd5cc;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .status-msg {
+            margin-top: 12px;
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #1d8f65;
+            min-height: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .settings-grid,
+            .settings-toggle-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TALASH</h1>
+                <p>ANALYTICAL LEDGER</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">DASHBOARD</a></li>
+                    <li><a href="candidates.html">CANDIDATES</a></li>
+                    <li><a href="analysis.html">ANALYSIS</a></li>
+                    <li><a href="reports.html">REPORTS</a></li>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li class="active"><a href="settings.html">SETTINGS</a></li>
+                </ul>
+            </nav>
+            <div class="upload-cv-sidebar">
+                <label for="cv-upload-input" class="btn-secondary">UPLOAD CV</label>
+                <input type="file" id="cv-upload-input" style="display: none;">
+            </div>
+        </aside>
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="SEARCH SETTINGS...">
+                </div>
+                <div class="user-profile">
+                    <div class="profile">
+                        <span>PROFILE</span>
+                        <span class="avatar-icon" aria-label="User Avatar" role="img">👤</span>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="page-title">Settings</h2>
+                    <p class="page-subtitle">Manage profile, roles, and notification preferences</p>
+                </div>
+                <a class="btn-primary" href="index.html">Back to dashboard</a>
+            </div>
+            <section class="analysis-queue">
+                <div class="queue-header"><h3>SETTINGS</h3></div>
+                <div class="settings-panel">
+                    <h3 style="margin: 0 0 16px; color: #0f1b2d; letter-spacing: 0.12em; font-size: 0.75rem;">Profile Preferences</h3>
+                    <div class="settings-grid">
+                        <div class="settings-field">
+                            <label for="displayName">Display Name</label>
+                            <input id="displayName" type="text" value="Recruiter Admin">
+                        </div>
+                        <div class="settings-field">
+                            <label for="emailAddress">Work Email</label>
+                            <input id="emailAddress" type="email" value="recruiter@talash.com">
+                        </div>
+                        <div class="settings-field">
+                            <label for="timezone">Timezone</label>
+                            <select id="timezone">
+                                <option value="Asia/Karachi">Asia/Karachi</option>
+                                <option value="UTC">UTC</option>
+                                <option value="Europe/London">Europe/London</option>
+                            </select>
+                        </div>
+                        <div class="settings-field">
+                            <label for="defaultView">Default Landing Page</label>
+                            <select id="defaultView">
+                                <option value="index.html">Dashboard</option>
+                                <option value="candidates.html">Candidates</option>
+                                <option value="reports.html">Reports</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-toggle-row">
+                        <label class="settings-toggle">
+                            <input id="notifyEmail" type="checkbox" checked>
+                            <span>Email alerts for flagged candidates</span>
+                        </label>
+                        <label class="settings-toggle">
+                            <input id="notifyDigest" type="checkbox" checked>
+                            <span>Daily summary digest</span>
+                        </label>
+                        <label class="settings-toggle">
+                            <input id="strictValidation" type="checkbox">
+                            <span>Strict profile validation mode</span>
+                        </label>
+                        <label class="settings-toggle">
+                            <input id="autoEmail" type="checkbox" checked>
+                            <span>Auto-generate missing info emails</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button class="btn-primary" id="saveSettingsBtn" type="button">Save Settings</button>
+                        <button class="btn-secondary" id="resetSettingsBtn" type="button">Reset</button>
+                    </div>
+
+                    <p class="status-msg" id="settingsStatus"></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

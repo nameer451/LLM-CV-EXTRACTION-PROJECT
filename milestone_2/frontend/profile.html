@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALASH - Candidate Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TALASH</h1>
+                <p>ANALYTICAL LEDGER</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">DASHBOARD</a></li>
+                    <li><a href="candidates.html">CANDIDATES</a></li>
+                    <li><a href="analysis.html">ANALYSIS</a></li>
+                    <li><a href="reports.html">REPORTS</a></li>
+                    <li class="active"><a href="profile.html">PROFILE</a></li>
+                    <li><a href="settings.html">SETTINGS</a></li>
+                </ul>
+            </nav>
+            <div class="upload-cv-sidebar">
+                <label for="cv-upload-input" class="btn-secondary">UPLOAD CV</label>
+                <input type="file" id="cv-upload-input" style="display: none;">
+            </div>
+        </aside>
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="SEARCH PROFILE...">
+                </div>
+                <div class="user-profile">
+                    <div class="profile">
+                        <span>PROFILE</span>
+                        <span class="avatar-icon" aria-label="User Avatar" role="img">👤</span>
+                    </div>
+                </div>
+            </header>
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="page-title">Candidate Profile</h2>
+                    <p class="page-subtitle">Detailed breakdown for a single candidate</p>
+                </div>
+                <a class="btn-primary" href="candidates.html">Back to candidates</a>
+            </div>
+            <section class="analysis-queue">
+                <div class="queue-header">
+                    <h3 id="profileName">Loading...</h3>
+                    <div class="queue-actions">
+                        <button id="downloadProfileBtn" type="button">DOWNLOAD PROFILE</button>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-card"><h3>OVERALL SCORE</h3><p class="stat-number" id="profileScore">94</p></div>
+                    <div class="stat-card"><h3>ANALYSIS STATUS</h3><p class="stat-number" id="profileAnalysisStatus" style="font-size: 1.4rem; margin-top: 12px;">COMPLETE</p></div>
+                    <div class="stat-card"><h3>FLAG STATUS</h3><p class="stat-number" id="profileFlagStatus" style="font-size: 1.4rem; margin-top: 12px;">CLEAR</p></div>
+                </div>
+                <table id="profileSummaryTable">
+                    <thead>
+                        <tr>
+                            <th>SECTION</th>
+                            <th>DETAIL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="profileSummaryBody">
+                        <tr><td colspan="2">Loading profile summary...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
